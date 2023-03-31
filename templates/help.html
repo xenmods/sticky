@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <!-- Primary Meta Tags -->
+      <title>Sticky - Help</title>
+      <meta name="title" content="Sticky - Help">
+      <meta name="description" content="Markdown pastebin service with preview and custom URLs. Fast, simple and free.">
+
+      <!-- Open Graph / Facebook -->
+      <meta property="og:type" content="website">
+      <meta property="og:url" content="https://sticky.xenmods.me/">
+      <meta property="og:title" content="Sticky - Help">
+      <meta property="og:description" content="Markdown pastebin service with preview and custom URLs. Fast, simple and free.">
+      <meta property="og:image" content="https://graph.org/file/1ccc161fa085d8b658335.jpg">
+
+      <!-- Twitter -->
+      <meta property="twitter:card" content="summary_large_image">
+      <meta property="twitter:url" content="https://sticky.xenmods.me/"">
+      <meta property="twitter:title" content="Sticky - Help">
+      <meta property="twitter:description" content="Markdown pastebin service with preview and custom URLs. Fast, simple and free.">
+      <meta property="twitter:image" content="https://graph.org/file/1ccc161fa085d8b658335.jpg">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="icon" type="image/x-icon" href="favicon.ico">
+      <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" />
+      <link rel="stylesheet" href="https://unpkg.com/@tailwindcss/typography@0.2.x/dist/typography.min.css"/>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.59.2/lib/codemirror.min.css" />
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css" rel="stylesheet" />
+      <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+   </head>
+   <style>
+      html {
+      scroll-behavior: smooth;
+      font-family: 'Space Grotesk', sans-serif;
+      }
+      .cursive {
+      font-family: 'Nanum Pen Script', cursive;
+      }
+      [x-cloak] { display: none; }
+      .CodeMirror-focused {
+      border-radius: .375rem;
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+      --tw-ring-opacity: 0.5;
+      --tw-ring-color: rgba(199, 210, 254, var(--tw-ring-opacity));
+      --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+      --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+      box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+      }
+      .CodeMirror {
+      padding: 0.75rem;
+      font-family: inherit;
+      font-size: inherit;
+      border-bottom-left-radius: .375rem;
+      border-bottom-right-radius: .375rem;
+      --tw-border-opacity: 1;
+      border: 1px solid rgba(209, 213, 219, var(--tw-border-opacity));
+      }
+      .CodeMirror.CodeMirror-focused {
+      --tw-border-opacity: 1;
+      border-color: rgba(165, 180, 252, var(--tw-border-opacity));
+      }
+      .cm-s-default .cm-header,
+      .cm-s-default .cm-variable-2 {
+      color: rgb(31, 41, 55);
+      }
+   </style>
+   <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
+      <div class="container flex flex-wrap items-center justify-between mx-auto">
+         <a href="/" class="flex items-center">
+         <img src="logo.png" class="h-6 mr-3 sm:h-9" alt="Sticky Logo" />
+         <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Sticky</span>
+         </a>
+         <div class="flex md:order-2">
+            <a href="/" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Publish <i class='bx bx-upload'></i></a>
+         </div>
+         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
+            <ul class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+               <li>
+                  <a href="/" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Home</a>
+               </li>
+               <li>
+                  <a href="./help" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Help</a>
+               </li>
+            </ul>
+         </div>
+      </div>
+   </nav>
+   <body class="bg-gray-50 antialiased">
+      <div class="w-full px-4 mx-auto min-h-screen py-5">
+         <div
+            x-data="markdown()"
+            x-init="
+            convertHtmlToMarkdown();
+            codeMirrorEditor = CodeMirror.fromTextArea($refs.input, {
+            mode: 'markdown',
+            theme: 'default',
+            lineWrapping: true,
+            placeholder: 'Start writing...'
+            });
+            codeMirrorEditor.setValue(content);
+            codeMirrorEditor.setSize('100%', height);
+            setTimeout(function() {
+            codeMirrorEditor.refresh();
+            }, 1);
+            codeMirrorEditor.on('change', () => content = codeMirrorEditor.getValue())
+            "
+            class="relative"
+            x-cloak
+            >
+            <div class="bg-gray-50 border border-b-0 border-gray-300 top-0 left-0 right-0 block rounded-t-md">
+               <button type="button" class="py-2 px-4 inline-block text-gray-400 font-semibold" :class="{ 'text-indigo-600': tab === 'write' }" x-on:click.prevent="tab = 'write'; showConvertedMarkdown = false">Write</button>
+               <button type="button" class="py-2 px-4 inline-block text-gray-400 font-semibold" :class="{ 'text-indigo-600': tab === 'preview' && showConvertedMarkdown === true }" x-on:click.prevent="tab = 'preview'; convertedMarkdown()">Preview</button>
+            </div>
+            <div x-show="! showConvertedMarkdown">
+               <div>
+                  <textarea
+                     id="textinput"
+                     x-ref="input"
+                     x-model.debounce.750ms="content"
+                     class="hidden"
+                     name="content"
+                     ></textarea>
+               </div>
+            </div>
+            <div x-show="showConvertedMarkdown">
+               <div x-html="convertedContent" class="w-full prose max-w-none prose-indigo leading-6 rounded-b-md shadow-sm border border-gray-300 p-5 bg-white overflow-y-auto" :style="`height: ${height}; max-width: 100%`"></div>
+            </div>
+         </div>
+         <div class="mt-6 text-gray-500 text-sm text-center">Created by <a class="text-indigo-500 underline" href="https://github.com/xenmods">@xenmods</a>.</div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/codemirror@5.59.2/lib/codemirror.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/codemirror@5.59.2/mode/markdown/markdown.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/turndown@7.0.0/dist/turndown.min.js"></script>
+      <script src="https://unpkg.com/marked@0.3.6/lib/marked.js"></script>
+      <script src="https://codemirror.net/5/addon/display/placeholder.js"></script>
+      <script>
+         function markdown() {
+             return {
+                 height: '500px',
+                 tab: 'write',
+                 content: '',
+                 showConvertedMarkdown: false,
+                 convertedContent: '',
+
+                 convertedMarkdown() {
+                     this.showConvertedMarkdown = true;
+                     this.convertedContent = marked(`# How To Use Sticky.
+This quick guide will teach you how to use **Sticky**!
+
+Click on the **Preview** button above to see how this guide looks!
+
+## How To Create A Sticky.
+It is very simple! Just write whatever you want and click on the **Publish** button above!
+
+
+## Markdown Help
+The below guide will teach you how to use **Markdown**.
+
+*   List:
+   1.  Use this format-
+   2.  to create lists!
+   3.  Easy, no?
+
+> Quotes are supported too!
+
+And **bold**, _italics_, and even _italics and later **bold**_. Even strikethrough. [A link](https://xenmods.me/home/) to somewhere.
+
+And, code highlighting!
+
+\`\`\`
+def format_string(name):
+return f"Hello, {name}! Welcome to Sticky!"
+\`\`\`
+Or...inline code: \`format_string = lambda name: f"Hello, {name}! Welcome to Sticky!"\`
+***
+Images, too!
+![Image Description](https://source.unsplash.com/random/)`, { sanitize: true });
+                 },
+                 convertHtmlToMarkdown() {
+                     turndownService = new TurndownService({
+                         headingStyle: 'atx',
+                         codeBlockStyle: 'fenced'
+                     });
+
+                     this.content =  turndownService.turndown(`<h1 id="how-to-use-sticky-">How To Use Sticky.</h1>
+         <p>This quick guide will teach you how to use <strong>Sticky</strong>!</p>
+         <p>Click on the <strong>Preview</strong> button above to see how this guide looks!</p>
+         <h2 id="how-to-create-a-sticky-">How To Create A Sticky.</h2>
+         <p>It is very simple! Just write whatever you want and click on the <strong>Publish</strong> button above!</p>
+         <h2 id="markdown-help">Markdown Help</h2>
+         <p>The below guide will teach you how to use <strong>Markdown</strong>.</p>
+         <ul>
+         <li>List:<ol>
+         <li>Use this format-</li>
+         <li>to create lists!</li>
+         <li>Easy, no?</li>
+         </ol>
+         </li>
+         </ul>
+         <blockquote>
+         <p>Quotes are supported too!</p>
+         </blockquote>
+         <p>And <strong>bold</strong>, <em>italics</em>, and even <em>italics and later <strong>bold</strong></em>. Even strikethrough. <a href="https://xenmods.me/home/">A link</a> to somewhere.</p>
+         <p>And, code highlighting!</p>
+         <pre><code>def format_string(name):
+         return f&quot;Hello, {name}! Welcome to Sticky!&quot;
+         </code></pre><p>Or...inline code: <code>format_string = lambda name: f&quot;Hello, {name}! Welcome to Sticky!&quot;</code></p>
+         <p>Images, too!
+         <img src="https://source.unsplash.com/random/" alt="Image Description"></p>`);
+                 }
+             }
+         }
+      </script>
+   </body>
+   <footer class=" bg-white rounded-lg shadow m-4 dark:bg-gray-800">
+      <div class="w-full mx-auto container md:p-6 p-4 md:flex md:items-center md:justify-between">
+         <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="/" class="hover:underline">Sticky™</a>. All Rights Reserved.
+         </span>
+         <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
+            <li>
+               <a href="./help" class="mr-4 hover:underline md:mr-6 ">Help</a>
+            </li>
+            <li>
+               <a href="mailto:ilumomin04@gmail.com" class="hover:underline">Contact</a>
+            </li>
+         </ul>
+      </div>
+   </footer>
+</html>
