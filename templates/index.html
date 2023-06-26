@@ -116,6 +116,7 @@
          <div
             x-data="markdown()"
             x-init="
+            content = get_value('text') !== null ? get_value('text') : '';
             convertHtmlToMarkdown();
             codeMirrorEditor = CodeMirror.fromTextArea($refs.input, {
             mode: 'markdown',
@@ -129,6 +130,7 @@
             codeMirrorEditor.refresh();
             }, 1);
             codeMirrorEditor.on('change', () => content = codeMirrorEditor.getValue())
+            codeMirrorEditor.on('change', () => set_value('text', codeMirrorEditor.getValue()));
             "
             class="relative"
             x-cloak
@@ -160,6 +162,21 @@
       <script src="https://unpkg.com/marked@0.3.6/lib/marked.js"></script>
       <script src="https://codemirror.net/5/addon/display/placeholder.js"></script>
       <script>
+         function get_value(key) {
+           if (typeof localStorage !== "undefined") {
+             const value = localStorage.getItem(key);
+             if (value !== null) {
+               return value;
+             }
+           }
+         }
+
+         function set_value(key, value) {
+           if (typeof localStorage !== "undefined") {
+             localStorage.setItem(key, value);
+           }
+         }
+
          function containsSpecialChars(str) {
              if (str.includes(" ")) {
                return true
@@ -234,6 +251,10 @@
                          headingStyle: 'atx',
                          codeBlockStyle: 'fenced'
                      });
+<!--                 if (get_value("text") != null) {-->
+<!--                     this.showConvertedMarkdown = true;-->
+<!--                     this.convertedContent = marked(get_value("text"), { sanitize: true });-->
+<!--                  }-->
                  }
              }
          }
