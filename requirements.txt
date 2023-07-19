@@ -7,3 +7,4 @@ python-dotenv
 jinja2
 psycopg2-binary
 feedparser
+araby-ai
