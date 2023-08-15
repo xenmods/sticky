@@ -3,11 +3,12 @@
 A simple PasteBin service - with Markdown!
 
 ## Overview
-`sticky` is a lightweight pastebin and url shortener built using FastAPI and SQLAlchemy.
+`sticky` is a lightweight pastebin built using FastAPI and SQLAlchemy.
 
 ## Updates
 - Added AI Generated Titles!
 - Added Image Preview Generation.
+- Add text-saving in `localstorage`.
 - Bug fixes.
 
 ## Features
