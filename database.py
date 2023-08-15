@@ -61,7 +61,7 @@ def create_paste(pasteID, controlID, content):
                 "error": "None",
             }
     except sqlalchemy.exc.OperationalError:
-        create_paste(pasteID, controlID, content)
+        return create_paste(pasteID, controlID, content)
     except:
         return {
             "success": False,
